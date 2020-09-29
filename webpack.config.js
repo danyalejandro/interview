@@ -12,6 +12,14 @@ module.exports = {
         filename: 'bundle.js'
     },
     devtool: DEV_MODE ? "eval-cheap-source-map" : "source-map",
+    devServer: {
+        watchOptions: {
+            ignored: [
+                path.resolve(__dirname, 'build'),
+                path.resolve(__dirname, 'node_modules')
+            ]
+        }
+    },
     module: {
         rules: [
             {

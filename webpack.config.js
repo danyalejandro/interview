@@ -13,6 +13,7 @@ module.exports = {
     },
     devtool: DEV_MODE ? "eval-cheap-source-map" : "source-map",
     devServer: {
+        contentBase: path.join(__dirname, 'public'),
         watchOptions: {
             ignored: [
                 path.resolve(__dirname, 'build'),
@@ -30,18 +31,22 @@ module.exports = {
                 }
             },
             {
-                test: /\.html$/,
-                use: {
-                    loader: "html-loader"
-                }
-            },
-            {
                 test: /\.s[ac]ss$/i,
                 use: [
                     DEV_MODE ? 'style-loader' : MiniCssExtractPlugin.loader,
                     { loader: 'css-loader', options: { sourceMap: DEV_MODE } },
                     'sass-loader'
                 ]
+            },
+            {
+                test: /\.html$/,
+                use: {
+                    loader: "html-loader"
+                }
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: ['file-loader']
             }
         ]
     },
